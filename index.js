@@ -46,8 +46,7 @@ app.get('/get-multipart-url', (req, res) => {
 });
 
 app.post('/complete-upload', (req, res) => {
-    
-    let params = {
+    const params = {
         Bucket: bucketName,
         Key: req.body.fileName,
         MultipartUpload: {
