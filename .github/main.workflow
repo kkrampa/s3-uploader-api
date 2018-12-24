@@ -11,4 +11,5 @@ action "GitHub Action for Docker" {
 action "Docker Tag" {
   uses = "actions/docker/tag@76ff57a"
   needs = ["GitHub Action for Docker"]
+  args = "s3-uploader-api s3-uploader-api"
 }
