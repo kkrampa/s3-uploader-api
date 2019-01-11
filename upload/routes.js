@@ -1,14 +1,7 @@
 const express = require('express');
-
-const app = express();
 const S3 = require('aws-sdk/clients/s3');
-const bodyParser = require('body-parser');
 
-app.use(bodyParser.json());
-
-const port = 3000;
-const bucketName = process.env.S3_UPLOAD_BUCKET;
-
+const router = express.Router();
 const s3 = new S3({
   apiVersion: '2006-03-01',
   accessKeyId: process.env.S3_UPLOAD_AWS_ACCESS_KEY,
@@ -17,8 +10,9 @@ const s3 = new S3({
   region: process.env.S3_UPLOAD_REGION,
 });
 
+const bucketName = process.env.S3_UPLOAD_BUCKET;
 
-app.get('/init-upload', (req, res) => {
+router.get('/init', (req, res) => {
   const params = {
     Bucket: bucketName,
     Key: req.query.fileName,
@@ -34,7 +28,7 @@ app.get('/init-upload', (req, res) => {
   });
 });
 
-app.get('/get-multipart-url', (req, res) => {
+router.get('/multipart-url', (req, res) => {
   const params = {
     Bucket: bucketName,
     Key: req.query.fileName,
@@ -50,7 +44,7 @@ app.get('/get-multipart-url', (req, res) => {
   });
 });
 
-app.post('/complete-upload', (req, res) => {
+router.post('/complete', (req, res) => {
   const params = {
     Bucket: bucketName,
     Key: req.body.fileName,
@@ -68,4 +62,4 @@ app.post('/complete-upload', (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`App listening on port ${port}!`));
+module.exports = router;
