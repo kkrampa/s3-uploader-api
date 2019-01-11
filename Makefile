@@ -5,4 +5,4 @@ env-dev-dep-install:
 	yarn install
 
 env-dev-runserver:
-	node index.js
+	node server.js
