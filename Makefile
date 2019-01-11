@@ -5,4 +5,7 @@ env-dev-dep-install:
 	yarn install
 
 env-dev-runserver:
+	npm start
+
+env-prod-runvserver:
 	node server.js
